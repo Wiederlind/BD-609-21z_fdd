@@ -16,6 +16,7 @@
             <th>Subject Name</th>
             <th>Bio</th>
             <th>Price</th>
+            <th>Actions</th>
         </tr>
         @foreach($tutors as $tutor)
         <tr>
@@ -24,9 +25,14 @@
             <td>{{ $tutor->subject->subject_name }}</td>
             <td>{{ $tutor->bio }}</td>
             <td>{{ $tutor->price }}</td>
+            <td>
+                <a href="{{ route('tutors.edit', $tutor->id) }}">Edit</a>
+                <a href="{{ route('tutors.destroy', $tutor->id) }}">Delete</a>
+            </td>
         </tr>
         @endforeach
     </table>
+    <a href="{{ route('tutors.create') }}">Create Tutor</a>
 </body>
 
 </html>
