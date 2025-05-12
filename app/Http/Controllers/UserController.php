@@ -7,10 +7,18 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function index()
+    // public function index()
+    // {
+    //     return view('users', [
+    //         'users' => User::all()
+    //     ]);
+    // }
+
+    public function index(Request $request)
     {
+        $perpage = $request->input('perpage', 10);
         return view('users', [
-            'users' => User::all()
+            'users' => User::paginate($perpage)->withQueryString()
         ]);
     }
 

@@ -9,25 +9,31 @@
 
 <body>
     <h2>Users list</h2>
-    <table border="1">
-        <tr>
-            <th>Id</th>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Email</th>
-            <th>Created at</th>
-            <th>Updated at</th>
-        </tr>
-        @foreach($users as $user)
-        <tr>
-            <td>{{ $user->id }}</td>
-            <td>{{ $user->first_name }}</td>
-            <td>{{ $user->last_name }}</td>
-            <td>{{ $user->email }}</td>
-            <td>{{ $user->created_at }}</td>
-            <td>{{ $user->updated_at }}</td>
-        </tr>
-        @endforeach
+    <div>
+        <table border="1">
+            <tr>
+                <th>Id</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Email</th>
+                <th>Created at</th>
+                <th>Updated at</th>
+            </tr>
+            @foreach($users as $user)
+            <tr>
+                <td>{{ $user->id }}</td>
+                <td>{{ $user->first_name }}</td>
+                <td>{{ $user->last_name }}</td>
+                <td>{{ $user->email }}</td>
+                <td>{{ $user->created_at }}</td>
+                <td>{{ $user->updated_at }}</td>
+            </tr>
+            @endforeach
+        </table>
+        <div>
+            {{ $users->links() }}
+        </div>
+    </div>
 </body>
 
 </html>
