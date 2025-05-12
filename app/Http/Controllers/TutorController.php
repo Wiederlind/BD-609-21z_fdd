@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Tutor;
 use App\Models\User;
 use App\Models\Subject;
+use Illuminate\Support\Facades\Gate;
 
 class TutorController extends Controller
 {
@@ -26,6 +27,9 @@ class TutorController extends Controller
 
     public function create()
     {
+        if (!Gate::allows('create-tutor')) {
+            return redirect('/error')->with('message', 'У вас нет разрешения на создание репетитора');
+        }
         $users = User::all();
         $subjects = Subject::all();
         return view('tutor_create', compact('users', 'subjects'));
@@ -33,6 +37,9 @@ class TutorController extends Controller
 
     public function edit($id)
     {
+        if (!Gate::allows('update-tutor', Tutor::findOrFail($id))) {
+            return redirect('/error')->with('message', 'У вас нет разрешения на редактирование');
+        }
         $tutor = Tutor::findOrFail($id);
         $users = User::all();
         $subjects = Subject::all();
@@ -41,6 +48,9 @@ class TutorController extends Controller
 
     public function destroy($id)
     {
+        if (!Gate::allows('destroy-tutor', Tutor::findOrFail($id))) {
+            return redirect('/error')->with('message', 'У вас нет разрешения на удаление');
+        }
         $tutor = Tutor::findOrFail($id);
         $tutor->delete();
 
