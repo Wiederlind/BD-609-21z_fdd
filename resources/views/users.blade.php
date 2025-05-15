@@ -1,39 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.layout')
+@section('content')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>users</title>
-</head>
-
-<body>
-    <h2>Users list</h2>
-    <div>
-        <table border="1">
-            <tr>
-                <th>Id</th>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>Email</th>
-                <th>Created at</th>
-                <th>Updated at</th>
-            </tr>
-            @foreach($users as $user)
-            <tr>
-                <td>{{ $user->id }}</td>
-                <td>{{ $user->first_name }}</td>
-                <td>{{ $user->last_name }}</td>
-                <td>{{ $user->email }}</td>
-                <td>{{ $user->created_at }}</td>
-                <td>{{ $user->updated_at }}</td>
-            </tr>
-            @endforeach
+<div class="container mt-4">
+    <h2 class="mb-4">Список пользователей</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Id</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Email</th>
+                    <th>Создан</th>
+                    <th>Обновлен</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($users as $user)
+                <tr>
+                    <td>{{ $user->id }}</td>
+                    <td>{{ $user->first_name }}</td>
+                    <td>{{ $user->last_name }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td>{{ $user->created_at }}</td>
+                    <td>{{ $user->updated_at }}</td>
+                </tr>
+                @endforeach
+            </tbody>
         </table>
-        <div>
-            {{ $users->links() }}
-        </div>
     </div>
-</body>
+    <div>
+        {{ $users->links() }}
+    </div>
+</div>
 
-</html>
+@endsection

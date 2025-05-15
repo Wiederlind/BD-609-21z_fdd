@@ -1,54 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.layout')
+@section('content')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Tutor</title>
-</head>
-
-<body>
-    <h2>Create Tutor</h2>
-    <form action="{{ route('tutors.store') }}" method="POST">
+<div class="container mt-4">
+    <h2 class="mb-4">Добавить репетитора</h2>
+    <form action="{{ route('tutors.store') }}" method="POST" class="card p-4 shadow-sm">
         @csrf
-        <br>
 
-        <label for="user_id">User:</label>
-        <select id="user_id" name="user_id" required>
-            <option value="">Select User</option>
-            @foreach($users as $user)
-            <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
-            @endforeach
-        </select>
+        <div class="mb-3">
+            <label for="user_id" class="form-label">Пользователь</label>
+            <select id="user_id" name="user_id" class="form-select" required>
+                <option value="">Выберите пользователя</option>
+                @foreach($users as $user)
+                <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
+                @endforeach
+            </select>
+        </div>
 
-        </br>
+        <div class="mb-3">
+            <label for="subject_id" class="form-label">Предмет</label>
+            <select id="subject_id" name="subject_id" class="form-select" required>
+                <option value="">Выберите предмет</option>
+                @foreach($subjects as $subject)
+                <option value="{{ $subject->id }}">{{ $subject->subject_name }}</option>
+                @endforeach
+            </select>
+        </div>
 
-        <br>
-        <label for="subject_id">Subject:</label>
-        <select id="subject_id" name="subject_id" required>
-            <option value="">Select Subject</option>
-            @foreach($subjects as $subject)
-            <option value="{{ $subject->id }}">{{ $subject->subject_name }}</option>
-            @endforeach
-        </select>
-        </br>
+        <div class="mb-3">
+            <label for="bio" class="form-label">Биография</label>
+            <textarea id="bio" name="bio" class="form-control" required></textarea>
+        </div>
 
-        <br>
-        <label for="bio">Bio:</label>
-        <textarea id="bio" name="bio" required></textarea>
-        </br>
+        <div class="mb-3">
+            <label for="price" class="form-label">Цена</label>
+            <input type="number" id="price" name="price" class="form-control" required>
+        </div>
 
-        <br>
-        <label for="price">Price:</label>
-        <input type="number" id="price" name="price" required>
-        </br>
-
-        <br>
-        <button type="submit">Create</button>
-        </br>
-
+        <button type="submit" class="btn btn-primary">Создать</button>
     </form>
+</div>
 
-</body>
-
-</html>
+@endsection

@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.layout')
+@section('content')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<h2>{{$message}}</h2>
+<a href="{{url('/')}}">Назад</a>
 
-<body>
-    <h2>{{ $message }}</h2>
-    <a href="{{ url('/tutors') }}">Вернуться</a>
-</body>
-
-</html>
+@endsection

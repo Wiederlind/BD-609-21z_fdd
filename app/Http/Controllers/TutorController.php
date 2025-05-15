@@ -7,28 +7,35 @@ use App\Models\Tutor;
 use App\Models\User;
 use App\Models\Subject;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class TutorController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $tutors = Tutor::with(['user', 'subject'])->get();
+        $user = Auth::user();
+        $perpage = $request->input('perpage', 10);
+        $tutors = Tutor::with(['user', 'subject'])->paginate($perpage)->appends(['perpage' => $perpage]);
+        // $tutors = Tutor::with(['user', 'subject'])->paginate($perpage);
         return view('tutors', [
-            'tutors' => $tutors
+            'tutors' => $tutors,
+            'user' => $user
         ]);
     }
 
     public function show($id)
     {
+        $user = Auth::user();
         return view('tutor', [
-            'tutor' => Tutor::findOrFail($id)
+            'tutor' => Tutor::findOrFail($id),
+            'user' => $user
         ]);
     }
 
     public function create()
     {
         if (!Gate::allows('create-tutor')) {
-            return redirect('/error')->with('message', 'У вас нет разрешения на создание репетитора');
+            return redirect('/tutors')->with('access_denied', 'У вас нет разрешения на создание');
         }
         $users = User::all();
         $subjects = Subject::all();
@@ -38,7 +45,7 @@ class TutorController extends Controller
     public function edit($id)
     {
         if (!Gate::allows('update-tutor', Tutor::findOrFail($id))) {
-            return redirect('/error')->with('message', 'У вас нет разрешения на редактирование');
+            return redirect('/tutors')->with('access_denied', 'У вас нет разрешения на редактирование');
         }
         $tutor = Tutor::findOrFail($id);
         $users = User::all();
@@ -49,7 +56,7 @@ class TutorController extends Controller
     public function destroy($id)
     {
         if (!Gate::allows('destroy-tutor', Tutor::findOrFail($id))) {
-            return redirect('/error')->with('message', 'У вас нет разрешения на удаление');
+            return redirect('/tutors')->with('access_denied', 'У вас нет разрешения на удаление');
         }
         $tutor = Tutor::findOrFail($id);
         $tutor->delete();
@@ -58,11 +65,14 @@ class TutorController extends Controller
         $user->is_tutor = 0;
         $user->save();
 
-        return redirect('/tutors');
+        return redirect('/tutors')->with('success', 'Запись успешно удалена');
     }
 
     public function update(Request $request, $id)
     {
+        if (!Gate::allows('update-tutor', Tutor::findOrFail($id))) {
+            return redirect('/tutors')->with('access_denied', 'У вас нет разрешения на редактирование');
+        }
         $validatedData = $request->validate([
             'user_id' => 'required|integer|exists:users,id',
             'subject_id' => 'required|integer|exists:subjects,id',
@@ -77,7 +87,7 @@ class TutorController extends Controller
         $user->is_tutor = 1;
         $user->save();
 
-        return redirect('/tutors');
+        return redirect('/tutors')->with('success', 'Данные изменены');
     }
 
     public function store(Request $request)
@@ -95,6 +105,6 @@ class TutorController extends Controller
         $user->is_tutor = 1;
         $user->save();
 
-        return redirect('/tutors');
+        return redirect('/tutors')->with('success', 'Запись создана');
     }
 }

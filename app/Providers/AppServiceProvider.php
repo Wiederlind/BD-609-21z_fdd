@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Paginator::useBootstrapFive();
         Paginator::defaultView('pagination::default');
 
         Gate::define('create-tutor', function (User $user) {

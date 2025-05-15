@@ -5,9 +5,14 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TutorController;
 use App\Http\Controllers\LoginController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', ['user' => Auth::user()]);
+});
+
+Route::get('/', function () {
+    return view('home', ['user' => Auth::user()]);
 });
 
 Route::get('/tutors/create', [TutorController::class, 'create'])->name('tutors.create')->middleware('auth');
@@ -26,7 +31,7 @@ Route::get('/subjects', [SubjectController::class, 'index']);
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::post('/auth', [LoginController::class, 'authenticate'])->name('auth');
+Route::post('/auth', [LoginController::class, 'authenticate'])->name('authenticate');
 
 Route::get('/error', function () {
     return view('error', ['message' => session('message')]);
