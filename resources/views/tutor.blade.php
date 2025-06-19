@@ -1,30 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.layout')
+@section('content')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tutor Details</title>
-</head>
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h1 class="card-title">{{ $tutor->user->first_name }} {{ $tutor->user->last_name }}</h1>
+            <p class="card-text"><strong>Предмет:</strong> {{ $tutor->subject->subject_name }}</p>
+            <p class="card-text"><strong>Описание:</strong> {{ $tutor->bio }}</p>
+            <p class="card-text"><strong>Цена:</strong> {{ $tutor->price }} руб.</p>
+            <p class="card-text"><strong>Почта для связи:</strong> {{ $tutor->user->email }}</p>
+        </div>
+    </div>
+</div>
 
-<body>
-    <h2>Tutor Details</h2>
-    <table border="1">
-        <tr>
-            <th>Id</th>
-            <th>User Name</th>
-            <th>Subject Name</th>
-            <th>Bio</th>
-            <th>Price</th>
-        </tr>
-        <tr>
-            <td>{{ $tutor->id }}</td>
-            <td>{{ $tutor->user->first_name }} {{ $tutor->user->last_name }}</td>
-            <td>{{ $tutor->subject->subject_name }}</td>
-            <td>{{ $tutor->bio }}</td>
-            <td>{{ $tutor->price }}</td>
-        </tr>
-    </table>
-</body>
-
-</html>
+@endsection

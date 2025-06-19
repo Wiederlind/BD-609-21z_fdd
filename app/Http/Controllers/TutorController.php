@@ -107,4 +107,22 @@ class TutorController extends Controller
 
         return redirect('/tutors')->with('success', 'Запись создана');
     }
+
+    public function cards(Request $request)
+    {
+        $subjectId = $request->input('subject_id');
+        $perpage = $request->input('perpage', 9);
+
+        $query = Tutor::with(['user', 'subject']);
+
+        if ($subjectId) {
+            $query->where('subject_id', $subjectId);
+        }
+
+        $tutors = $query->paginate($perpage)->appends(['subject_id' => $subjectId, 'perpage' => $perpage]);
+
+        $subjects = Subject::all();
+
+        return view('tutors_cards', compact('tutors', 'subjects', 'perpage'));
+    }
 }

@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Tutor;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrapFive();
         Paginator::defaultView('pagination::default');
+
+        View::composer('*', function ($view) {
+            $view->with('user', Auth::user());
+        });
 
         Gate::define('create-tutor', function (User $user) {
             return $user->is_admin;

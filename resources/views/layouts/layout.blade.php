@@ -14,14 +14,32 @@
     html,
     body {
         height: 100%;
-    }
-
-    body {
         min-height: 100vh;
     }
 
     .container {
         flex: 1 0 auto;
+    }
+
+    .btn-primary {
+        background-color: #294283;
+        border-color: #294283;
+    }
+
+    .btn-primary:hover {
+        color: #294283;
+        background-color: #ffffff;
+        border-color: #294283;
+    }
+
+    .btn-outline-primary {
+        color: #294283;
+        border-color: #294283;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #294283;
+        color: white;
     }
 </style>
 
