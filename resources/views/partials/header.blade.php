@@ -17,7 +17,7 @@
                     <a class="btn" style="background-color: #294283; color: white;" href="{{ url('/users') }}">Пользователи</a>
                 </li> -->
                 @if (isset($user))
-                <button href="#" class="btn btn-link" style="color: white;">{{ $user->first_name }}</button>
+                <a href="/profile" class="btn btn-link" style="color: white;">{{ $user->first_name }}</a>
                 <form action="{{ route('logout') }}" method="get" class="d-inline">
                     @csrf
                     <button type="submit" class="btn btn-link" style="color: red;">Выйти</button>

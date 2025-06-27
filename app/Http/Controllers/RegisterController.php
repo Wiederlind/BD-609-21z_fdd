@@ -32,6 +32,6 @@ class RegisterController extends Controller
 
         Auth::login($user);
 
-        return redirect('/')->with('success', 'Registration successful!');
+        return redirect('/')->with('success', 'Регистрация прошла успешно!');
     }
 }

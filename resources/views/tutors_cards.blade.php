@@ -30,7 +30,7 @@
                     <h5 class="card-title">{{ $tutor->user->first_name }} {{ $tutor->user->last_name }}</h5>
                     <p class="card-text"><strong>Предмет:</strong> {{ $tutor->subject->subject_name }}</p>
                     <p class="card-text"><strong>Описание:</strong> {{ $tutor->bio }}</p>
-                    <p class="card-text"><strong>Цена за академический час:</strong> {{ $tutor->price }} руб.</p>
+                    <p class="card-text"><strong>Цена за час:</strong> {{ $tutor->price }} руб.</p>
                     <a href="{{ route('tutors.show', $tutor->id) }}" class="btn btn-primary">Подробнее</a>
                 </div>
             </div>

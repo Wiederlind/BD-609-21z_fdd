@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Tutor;
+use App\Models\Order;
 
 
 class User extends Authenticatable
@@ -17,6 +19,11 @@ class User extends Authenticatable
     public function tutors(): HasMany
     {
         return $this->hasMany(Tutor::class);
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 
     protected $fillable = [

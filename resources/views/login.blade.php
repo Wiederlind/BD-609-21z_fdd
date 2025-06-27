@@ -36,6 +36,9 @@
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary">Войти</button>
                         </div>
+                        <div class="mt-3 text-center">
+                            <a href="{{ route('register.store') }}">Нет аккаунта? Зарегистрируйтесь</a>
+                        </div>
                         @error('error')
                         <div class="alert alert-danger mt-3">{{ $message }}</div>
                         @enderror

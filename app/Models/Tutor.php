@@ -19,6 +19,10 @@ class Tutor extends Model
     {
         return $this->belongsTo(Subject::class);
     }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 
     protected $fillable = [
         'user_id',

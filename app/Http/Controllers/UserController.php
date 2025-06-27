@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Order;
 
 class UserController extends Controller
 {
@@ -27,5 +29,14 @@ class UserController extends Controller
         return view('user', [
             'user' => User::findOrFail($id)
         ]);
+    }
+
+    public function profile()
+    {
+        $user = Auth::user();
+        $orders = Order::where('user_id', Auth::id())->with(['tutor', 'subject', 'review'])->get();
+        // dd($orders); // Вывод данных для проверки
+
+        return view('profile', compact('user', 'orders'));
     }
 }

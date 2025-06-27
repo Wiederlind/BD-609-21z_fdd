@@ -6,6 +6,8 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TutorController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
@@ -24,6 +26,11 @@ Route::get('/tutors/{id}/destroy', [TutorController::class, 'destroy'])->name('t
 Route::get('/users', [UserController::class, 'index']);
 Route::get('/users/{id}', [UserController::class, 'show']);
 
+Route::get('/profile', [UserController::class, 'profile'])->name('profile')->middleware('auth');
+
+Route::post('/orders/{id}/rate', [OrderController::class, 'rate'])->name('orders.rate')->middleware('auth');
+Route::delete('/orders/{id}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel')->middleware('auth');
+
 Route::get('/subjects/{id}', [SubjectController::class, 'show']);
 Route::get('/subjects', [SubjectController::class, 'index']);
 
@@ -33,6 +40,13 @@ Route::post('/auth', [LoginController::class, 'authenticate'])->name('authentica
 
 Route::get('/register', [RegisterController::class, 'create'])->name('register.create');
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+
+Route::post('/orders', [OrderController::class, 'store'])->name('orders.store')->middleware('auth');
+
+
+Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store')->middleware('auth');
+Route::delete('/reviews/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy')->middleware('auth');
+Route::put('/reviews/{id}', [ReviewController::class, 'update'])->name('reviews.update')->middleware('auth');
 
 Route::get('/error', function () {
     return view('error', ['message' => session('message')]);
