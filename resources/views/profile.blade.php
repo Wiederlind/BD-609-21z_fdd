@@ -60,7 +60,7 @@
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Удалить отзыв</button>
                                 </form>
-                                <button class="btn btn-primary mt-2" onclick="toggleEditForm({{ $order->id }})">Изменить отзыв</button>
+                                <button class="btn btn-primary mt-2" onclick="toggleEditForm('{{ $order->id }}')">Изменить отзыв</button>
                                 <form method="POST" action="{{ route('reviews.update', $order->review->id) }}" class="mt-2 d-none" id="editForm{{ $order->id }}">
                                     @csrf
                                     @method('PUT')

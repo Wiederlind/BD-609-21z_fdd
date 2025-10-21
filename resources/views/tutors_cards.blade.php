@@ -3,7 +3,6 @@
 <div class="container mt-5">
     <h1 class="text-center mb-4">Список репетиторов</h1>
 
-    <!-- Форма для фильтрации -->
     <form method="GET" action="{{ route('tutors.cards') }}" class="mb-4">
         <div class="row">
             <div class="col-md-4">
