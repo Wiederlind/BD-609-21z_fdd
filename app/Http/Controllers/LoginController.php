@@ -22,7 +22,7 @@ class LoginController extends Controller
 
         // Authentication failed
         return back()->withErrors([
-            'error' => 'The provided credentials do not match our records.',
+            'error' => 'Неверные учетные данные.',
         ])->onlyInput('email', 'password');
     }
 
